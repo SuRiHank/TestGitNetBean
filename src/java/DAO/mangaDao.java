@@ -58,24 +58,22 @@ public class mangaDao implements mangaInterface {
     }
 
     @Override
-    public void addManga(int product_id, String product_type, String product_name,
-            BigDecimal product_price, int product_numberof, int product_available, 
-            String product_detail, String product_img, String product_brand, int product_review) {
+    public void addManga(int mangaID, String title, String description, 
+            int userID, Date createdAt, String product_detail, String product_img, String product_brand, int product_review) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
             conn = DBContext.getConnection();
-            String sql = "INSERT INTO product (product_id, product_type, product_name, product_price,"
-                    + "product_numberof, product_available, product_detail, product_img,"
+            String sql = "INSERT INTO product (mangaID, title, description, userID,"
+                    + "createdAt, product_available, product_detail, product_img,"
                     + "product_brand, product_review) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, product_id);
-            stmt.setString(2, product_type);
-            stmt.setString(3, product_name);
-            stmt.setBigDecimal(4, product_price);
-            stmt.setInt(5, product_numberof);
-            stmt.setInt(6, product_available);
+            stmt.setInt(1, mangaID);
+            stmt.setString(2, title);
+            stmt.setString(3, description);
+            stmt.setInt(4, userID);
+            stmt.setDate(5, (java.sql.Date) createdAt);
             stmt.setString(7, product_detail);
             stmt.setString(8, product_img);
             stmt.setString(9, product_brand);
